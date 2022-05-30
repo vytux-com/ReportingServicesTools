@@ -100,9 +100,9 @@ function Get-RsRestItemAccessPolicy
 
             Write-Verbose "Fetching Policies for $RsItem..."
             $PolicyUri = [String]::Format($PolicyUri, $Item.Id)
-            if ($Credential -ne $null)
+            if ($null -ne $WebSession.Credentials)
             {
-                $response = Invoke-RestMethod -Uri $PolicyUri -Method Get -WebSession $WebSession -Credential $Credential -Verbose:$false
+                $response = Invoke-RestMethod -Uri $PolicyUri -Method Get -WebSession $WebSession -Verbose:$false
             }
             else
             {
@@ -154,9 +154,9 @@ function Get-RsRestItemAccessPolicy
                     $PolicyUri = $ReportPortalUri + "api/$RestApiVersion/CatalogItems({0})/Policies"
                     $PolicyUri = [String]::Format($PolicyUri, $ChildItem.Id)
             
-                    if ($Credential -ne $null)
+                    if ($null -ne $WebSession.Credentials)
                     {
-                        $childPolicies = Invoke-RestMethod -Uri $PolicyUri -Method Get -WebSession $WebSession -Credential $Credential -Verbose:$false
+                        $childPolicies = Invoke-RestMethod -Uri $PolicyUri -Method Get -WebSession $WebSession -Verbose:$false
                     }
                     else
                     {

@@ -152,9 +152,9 @@ function Write-RsRestFolderContent
                 try
                 {
                     # Try to get folder info
-                    if ($Credential -ne $null)
+                    if ($null -ne $WebSession.Credentials)
                     {
-                        $response = Invoke-WebRequest -Uri $uri -Method Get -WebSession $WebSession -Credential $Credential -UseBasicParsing -Verbose:$false
+                        $response = Invoke-WebRequest -Uri $uri -Method Get -WebSession $WebSession -UseBasicParsing -Verbose:$false
                     }
                     else
                     {

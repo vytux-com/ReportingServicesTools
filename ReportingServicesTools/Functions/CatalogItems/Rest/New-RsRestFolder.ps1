@@ -89,9 +89,9 @@ function New-RsRestFolder
             }
             $payloadJson = ConvertTo-Json $payload
 
-            if ($Credential -ne $null)
+            if ($null -ne $WebSession.Credentials)
             {
-                $response = Invoke-WebRequest -Uri $foldersUri -Method Post -WebSession $WebSession -Body ([System.Text.Encoding]::UTF8.GetBytes($payloadJson)) -ContentType "application/json" -Credential $Credential -UseBasicParsing -Verbose:$false
+                $response = Invoke-WebRequest -Uri $foldersUri -Method Post -WebSession $WebSession -Body ([System.Text.Encoding]::UTF8.GetBytes($payloadJson)) -ContentType "application/json" -UseBasicParsing -Verbose:$false
             }
             else
             {

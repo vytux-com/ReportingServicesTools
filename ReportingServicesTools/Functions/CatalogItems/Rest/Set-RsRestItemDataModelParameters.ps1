@@ -89,9 +89,9 @@ function Set-RsRestItemDataModelParameter
             if ($PSCmdlet.ShouldProcess($RsItem, "Update data model parameters"))
             {
                 Write-Verbose "Updating data model parameters for $($RsItem)..."
-                if ($Credential -ne $null)
+                if ($null -ne $WebSession.Credentials)
                 {
-                    Invoke-WebRequest -Uri $dataModelParametersUri -Method $method -Body ([System.Text.Encoding]::UTF8.GetBytes($payloadJson)) -ContentType "application/json" -WebSession $WebSession -Credential $Credential -UseBasicParsing -Verbose:$false | Out-Null
+                    Invoke-WebRequest -Uri $dataModelParametersUri -Method $method -Body ([System.Text.Encoding]::UTF8.GetBytes($payloadJson)) -ContentType "application/json" -WebSession $WebSession -UseBasicParsing -Verbose:$false | Out-Null
                 }
                 else
                 {

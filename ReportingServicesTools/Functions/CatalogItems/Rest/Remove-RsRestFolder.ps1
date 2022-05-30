@@ -74,9 +74,9 @@ function Remove-RsRestFolder
                 Write-Verbose "Deleting folder $RsFolder..."
                 $foldersUri = [String]::Format($foldersUri, $RsFolder)
 
-                if ($Credential -ne $null)
+                if ($null -ne $WebSession.Credentials)
                 {
-                    Invoke-WebRequest -Uri $foldersUri -Method Delete -WebSession $WebSession -Credential $Credential -UseBasicParsing -Verbose:$false | Out-Null
+                    Invoke-WebRequest -Uri $foldersUri -Method Delete -WebSession $WebSession -UseBasicParsing -Verbose:$false | Out-Null
                 }
                 else
                 {

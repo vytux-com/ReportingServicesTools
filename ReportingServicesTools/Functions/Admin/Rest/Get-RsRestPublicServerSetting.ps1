@@ -65,9 +65,9 @@ function Get-RsRestPublicServerSetting
 
             $uri = [String]::Format($systemPropertiesUri, $Property)
 
-            if ($Credential -ne $null)
+            if ($null -ne $WebSession.Credentials)
             {
-                $response = Invoke-RestMethod -Uri $uri -Method Get -WebSession $WebSession -Credential $Credential -Verbose:$false
+                $response = Invoke-RestMethod -Uri $uri -Method Get -WebSession $WebSession -Verbose:$false
             }
             else
             {

@@ -84,9 +84,9 @@ function Get-RsRestCacheRefreshPlan
 
             Write-Verbose "Fetching CacheRefreshPlans for $RsReport..."
             $CacheRefreshPlanUri = [String]::Format($CacheRefreshPlanUri, $Report.Id)
-            if ($Credential -ne $null)
+            if ($null -ne $WebSession.Credentials)
             {
-                $response = Invoke-RestMethod -Uri $CacheRefreshPlanUri -Method Get -WebSession $WebSession -Credential $Credential -Verbose:$false
+                $response = Invoke-RestMethod -Uri $CacheRefreshPlanUri -Method Get -WebSession $WebSession -Verbose:$false
             }
             else
             {

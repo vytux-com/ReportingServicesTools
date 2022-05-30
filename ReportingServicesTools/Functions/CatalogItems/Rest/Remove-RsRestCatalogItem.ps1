@@ -74,9 +74,9 @@ function Remove-RsRestCatalogItem
                 Write-Verbose "Deleting item $RsItem..."
                 $catalogItemsUri = [String]::Format($catalogItemsUri, $RsItem)
     
-                if ($Credential -ne $null)
+                if ($null -ne $WebSession.Credentials)
                 {
-                    Invoke-WebRequest -Uri $catalogItemsUri -Method Delete -WebSession $WebSession -Credential $Credential -UseBasicParsing -Verbose:$false | Out-Null
+                    Invoke-WebRequest -Uri $catalogItemsUri -Method Delete -WebSession $WebSession -UseBasicParsing -Verbose:$false | Out-Null
                 }
                 else
                 {

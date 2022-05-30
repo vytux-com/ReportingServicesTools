@@ -322,9 +322,9 @@ function Write-RsRestCatalogItem
                     $requestBody = ([System.Text.Encoding]::UTF8.GetBytes($payloadJson))
                 }
 
-                if ($Credential -ne $null)
+                if ($null -ne $WebSession.Credentials)
                 {
-                    Invoke-WebRequest -Uri $endpointUrl -Method Post -WebSession $WebSession -Body $requestBody -ContentType $contentType -Credential $Credential -UseBasicParsing -Verbose:$false | Out-Null
+                    Invoke-WebRequest -Uri $endpointUrl -Method Post -WebSession $WebSession -Body $requestBody -ContentType $contentType -UseBasicParsing -Verbose:$false | Out-Null
                 }
                 else
                 {
@@ -341,9 +341,9 @@ function Write-RsRestCatalogItem
                     {
                         Write-Verbose "$itemName already exists at $RsFolder. Retrieving id in order to overwrite it..."
                         $uri = [String]::Format($catalogItemsByPathApi, $itemPath)
-                        if ($Credential -ne $null)
+                        if ($null -ne $WebSession.Credentials)
                         {
-                            $response = Invoke-WebRequest -Uri $uri -Method Get -WebSession $WebSession -Credential $Credential -UseBasicParsing -Verbose:$false
+                            $response = Invoke-WebRequest -Uri $uri -Method Get -WebSession $WebSession -UseBasicParsing -Verbose:$false
                         }
                         else
                         {
@@ -356,9 +356,9 @@ function Write-RsRestCatalogItem
 
                         Write-Verbose "Overwriting $itemName at $itemPath..."
                         $uri = [String]::Format($catalogItemsUpdateUri, $itemId)
-                        if ($Credential -ne $null)
+                        if ($null -ne $WebSession.Credentials)
                         {
-                            Invoke-WebRequest -Uri $uri -Method Put -WebSession $WebSession -Body ([System.Text.Encoding]::UTF8.GetBytes($payloadJson)) -ContentType "application/json" -Credential $Credential -UseBasicParsing -Verbose:$false | Out-Null
+                            Invoke-WebRequest -Uri $uri -Method Put -WebSession $WebSession -Body ([System.Text.Encoding]::UTF8.GetBytes($payloadJson)) -ContentType "application/json" -UseBasicParsing -Verbose:$false | Out-Null
                         }
                         else
                         {

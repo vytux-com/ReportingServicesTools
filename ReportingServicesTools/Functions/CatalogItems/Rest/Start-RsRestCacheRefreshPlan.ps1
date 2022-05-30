@@ -110,9 +110,9 @@ function Start-RsRestCacheRefreshPlan
             else
             {
                 Write-Verbose "Fetching CacheRefreshPlans for $RsReport..."
-                if ($Credential -ne $null)
+                if ($null -ne $WebSession.Credentials)
                 {
-                    $RefreshPlan = Get-RsCacheRefreshPlan -ReportPortalUri $ReportPortalUri -RsReport $RsReport -WebSession $WebSession -Credential $Credential -Verbose:$false
+                    $RefreshPlan = Get-RsCacheRefreshPlan -ReportPortalUri $ReportPortalUri -RsReport $RsReport -WebSession $WebSession -Verbose:$false
                 }
                 else
                 {
@@ -130,9 +130,9 @@ function Start-RsRestCacheRefreshPlan
             Write-Verbose "$($CacheRefreshPlansUri)"
             
             Write-Verbose "Starting Refresh for $($RefreshPlan.RsReport)$($Id)..."
-            if ($Credential -ne $null)
+            if ($null -ne $WebSession.Credentials)
             {
-                $response = Invoke-RestMethod -Uri $CacheRefreshPlansUri -Method Post -WebSession $WebSession -Credential $Credential -Verbose:$false
+                $response = Invoke-RestMethod -Uri $CacheRefreshPlansUri -Method Post -WebSession $WebSession -Verbose:$false
             }
             else
             {

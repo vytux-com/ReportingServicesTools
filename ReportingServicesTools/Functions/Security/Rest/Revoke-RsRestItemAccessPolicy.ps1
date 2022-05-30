@@ -96,9 +96,9 @@ function Revoke-RsRestItemAccessPolicy
                 Write-Verbose "Fetching Policies for $Item..."
                 $PolicyUri = $ReportPortalUri + "api/$RestApiVersion/CatalogItems({0})/Policies"
                 $PolicyUri = [String]::Format($PolicyUri, $Item.Id)
-                if ($Credential -ne $null)
+                if ($null -ne $WebSession.Credentials)
                 {
-                    $response = Invoke-RestMethod -Uri $PolicyUri -Method Get -WebSession $WebSession -Credential $Credential -Verbose:$false
+                    $response = Invoke-RestMethod -Uri $PolicyUri -Method Get -WebSession $WebSession -Verbose:$false
                 }
                 else
                 {
@@ -109,9 +109,9 @@ function Revoke-RsRestItemAccessPolicy
                 Write-Verbose "Fetching Policies for $Item..."
                 $PolicyUri = $ReportPortalUri + "api/$RestApiVersion/Folders({0})/Policies"
                 $PolicyUri = [String]::Format($PolicyUri, $Item.Id)
-                if ($Credential -ne $null)
+                if ($null -ne $WebSession.Credentials)
                 {
-                    $response = Invoke-RestMethod -Uri $PolicyUri -Method Get -WebSession $WebSession -Credential $Credential -Verbose:$false
+                    $response = Invoke-RestMethod -Uri $PolicyUri -Method Get -WebSession $WebSession -Verbose:$false
                 }
                 else
                 {
@@ -124,9 +124,9 @@ function Revoke-RsRestItemAccessPolicy
 
             $payloadJson = $response | ConvertTo-Json -Depth 15
             Write-Verbose "$payloadJson"
-            if ($Credential -ne $null)
+            if ($null -ne $WebSession.Credentials)
             {
-                $response = Invoke-RestMethod -Uri $PolicyUri -Method Put -WebSession $WebSession -Credential $Credential -Body ([System.Text.Encoding]::UTF8.GetBytes($payloadJson)) -ContentType "application/json"  -Verbose:$false
+                $response = Invoke-RestMethod -Uri $PolicyUri -Method Put -WebSession $WebSession -Body ([System.Text.Encoding]::UTF8.GetBytes($payloadJson)) -ContentType "application/json"  -Verbose:$false
             }
             else
             {

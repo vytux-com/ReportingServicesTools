@@ -78,7 +78,7 @@ function Test-RsRestItemDataSource
 
         if ($Credential -ne $null)
         {
-            $Report = Get-RsRestItem -ReportPortalUri $ReportPortalUri -RsItem $RsReport -Credential $Credential -Verbose:$false
+            $Report = Get-RsRestItem -ReportPortalUri $ReportPortalUri -RsItem $RsReport -WebSession $WebSession -Credential $Credential -Verbose:$false
             $ReportDataSources = Get-RsRestItemDataSource -ReportPortalUri $ReportPortalUri -RsItem $Report.Path -WebSession $WebSession -Credential $Credential -Verbose:$false
         }
         else
@@ -99,9 +99,9 @@ function Test-RsRestItemDataSource
                 $DataSourceConnectionUri = $ReportPortalUri + "api/$RestApiVersion/Reports({0})/Model.CheckDataSourceConnection"
                 $DataSourceConnectionUri = [String]::Format($DataSourceConnectionUri, $Report.Id)
                 Write-Verbose "$DataSourceConnectionUri"
-                if ($Credential -ne $null)
+                if ($null -ne $WebSession.Credentials)
                 {
-                    $PostResponse = Invoke-RestMethod -Uri $DataSourceConnectionUri -Method Post -Body ([System.Text.Encoding]::UTF8.GetBytes($payloadJson)) -ContentType "application/json" -Credential $Credential -Verbose:$false
+                    $PostResponse = Invoke-RestMethod -Uri $DataSourceConnectionUri -Method Post -Body ([System.Text.Encoding]::UTF8.GetBytes($payloadJson)) -ContentType "application/json" -WebSession $WebSession -Verbose:$false
                 }
                 else
                 {
@@ -125,9 +125,9 @@ function Test-RsRestItemDataSource
                 $DataSourceConnectionUri = $ReportPortalUri + "api/$RestApiVersion/PowerBIReports({0})/Model.CheckDataSourceConnection"
                 $DataSourceConnectionUri = [String]::Format($DataSourceConnectionUri, $Report.Id)
                 Write-Verbose "$DataSourceConnectionUri"
-                if ($Credential -ne $null)
+                if ($null -ne $WebSession.Credentials)
                 {
-                    $PostResponse = Invoke-RestMethod -Uri $DataSourceConnectionUri -Method Post -Body ([System.Text.Encoding]::UTF8.GetBytes($payloadJson)) -ContentType "application/json" -Credential $Credential -Verbose:$false
+                    $PostResponse = Invoke-RestMethod -Uri $DataSourceConnectionUri -Method Post -Body ([System.Text.Encoding]::UTF8.GetBytes($payloadJson)) -ContentType "application/json" -WebSession $WebSession -Verbose:$false
                 }
                 else
                 {

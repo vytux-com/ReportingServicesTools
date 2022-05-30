@@ -85,9 +85,9 @@ function Get-RsRestItemDataSource
         {
             Write-Verbose "Fetching metadata for $RsItem..."
             $catalogItemsUri = [String]::Format($catalogItemsUri, $RsItem)
-            if ($Credential -ne $null)
+            if ($null -ne $WebSession.Credentials)
             {
-                $response = Invoke-WebRequest -Uri $catalogItemsUri -Method Get -WebSession $WebSession -Credential $Credential -UseBasicParsing -Verbose:$false
+                $response = Invoke-WebRequest -Uri $catalogItemsUri -Method Get -WebSession $WebSession -UseBasicParsing -Verbose:$false
             }
             else
             {
@@ -100,9 +100,9 @@ function Get-RsRestItemDataSource
             Write-Verbose "Fetching data sources for $RsItem..."
             $dataSourcesUri = [String]::Format($dataSourcesUri, $itemType + "s", $RsItem)
 
-            if ($Credential -ne $null)
+            if ($null -ne $WebSession.Credentials)
             {
-                $response = Invoke-WebRequest -Uri $dataSourcesUri -Method Get -WebSession $WebSession -Credential $Credential -UseBasicParsing -Verbose:$false
+                $response = Invoke-WebRequest -Uri $dataSourcesUri -Method Get -WebSession $WebSession -UseBasicParsing -Verbose:$false
             }
             else
             {

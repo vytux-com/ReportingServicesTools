@@ -82,9 +82,9 @@ function Get-RsRestItemDataModelParameter
         {
             Write-Verbose "Fetching metadata for $RsItem..."
             $catalogItemsUri = [String]::Format($catalogItemsUri, $RsItem)
-            if ($Credential -ne $null)
+            if ($null -ne $WebSession.Credentials)
             {
-                $response = Invoke-WebRequest -Uri $catalogItemsUri -Method Get -WebSession $WebSession -Credential $Credential -UseBasicParsing -Verbose:$false
+                $response = Invoke-WebRequest -Uri $catalogItemsUri -Method Get -WebSession $WebSession -UseBasicParsing -Verbose:$false
             }
             else
             {
@@ -97,9 +97,9 @@ function Get-RsRestItemDataModelParameter
             Write-Verbose "Fetching parameters for $RsItem..."
             $parametersUri = [String]::Format($parametersUri, $itemType + "s", $RsItem)
 
-            if ($Credential -ne $null)
+            if ($null -ne $WebSession.Credentials)
             {
-                $paramResponse = Invoke-WebRequest -Uri $parametersUri -Method Get -WebSession $WebSession -Credential $Credential -UseBasicParsing -Verbose:$false
+                $paramResponse = Invoke-WebRequest -Uri $parametersUri -Method Get -WebSession $WebSession -UseBasicParsing -Verbose:$false
             }
             else
             {

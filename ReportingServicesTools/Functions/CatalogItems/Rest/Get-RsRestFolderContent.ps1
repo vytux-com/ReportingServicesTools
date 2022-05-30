@@ -76,9 +76,9 @@ function Get-RsRestFolderContent
         {
             Write-Verbose "Fetching metadata for $RsFolder..."
             $url = [String]::Format($catalogItemsUri, $RsFolder)
-            if ($Credential -ne $null)
+            if ($null -ne $WebSession.Credentials)
             {
-                $response = Invoke-WebRequest -Uri $url -Method Get -WebSession $WebSession -Credential $Credential -UseBasicParsing -Verbose:$false
+                $response = Invoke-WebRequest -Uri $url -Method Get -WebSession $WebSession -UseBasicParsing -Verbose:$false
             }
             else
             {

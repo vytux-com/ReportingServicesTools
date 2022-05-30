@@ -236,9 +236,9 @@ function Set-RsRestItemDataSource
             if ($PSCmdlet.ShouldProcess($RsItem, "Update data sources"))
             {
                 Write-Verbose "Updating data sources for $($RsItem)..."
-                if ($Credential -ne $null)
+                if ($null -ne $WebSession.Credentials)
                 {
-                    Invoke-WebRequest -Uri $dataSourcesUri -Method $method -Body ([System.Text.Encoding]::UTF8.GetBytes($payloadJson)) -ContentType "application/json" -WebSession $WebSession -Credential $Credential -UseBasicParsing -Verbose:$false | Out-Null
+                    Invoke-WebRequest -Uri $dataSourcesUri -Method $method -Body ([System.Text.Encoding]::UTF8.GetBytes($payloadJson)) -ContentType "application/json" -WebSession $WebSession -UseBasicParsing -Verbose:$false | Out-Null
                 }
                 else
                 {

@@ -92,7 +92,7 @@ function Get-RsRestCacheRefreshPlanHistory
         if($RsReport){
             if ($Credential -ne $null)
             {
-                $CachePlans = Get-RsRestCacheRefreshPlan -ReportPortalUri $ReportPortalUri -RsItem $RsReport -Credential $Credential -Verbose:$false
+                $CachePlans = Get-RsRestCacheRefreshPlan -ReportPortalUri $ReportPortalUri -RsItem $RsReport -WebSession $WebSession -Credential $Credential -Verbose:$false
             }
             else
             {
@@ -103,9 +103,9 @@ function Get-RsRestCacheRefreshPlanHistory
                 $CacheRefreshPlanUri = $ReportPortalUri + "api/$RestApiVersion/CacheRefreshPlans({0})/History"
                 $CacheRefreshPlanUri = [String]::Format($CacheRefreshPlanUri, $CachePlan.Id)
                 Write-Verbose "$CacheRefreshPlanUri"
-                if ($Credential -ne $null)
+                if ($null -ne $WebSession.Credentials)
                 {
-                    $response = Invoke-RestMethod -Uri $CacheRefreshPlanUri -Method Get -WebSession $WebSession -Credential $Credential -Verbose:$false
+                    $response = Invoke-RestMethod -Uri $CacheRefreshPlanUri -Method Get -WebSession $WebSession -Verbose:$false
                 }
                 else
                 {
@@ -119,9 +119,9 @@ function Get-RsRestCacheRefreshPlanHistory
             $CacheRefreshPlanUri = $ReportPortalUri + "api/$RestApiVersion/CacheRefreshPlans({0})/History"
             $CacheRefreshPlanUri = [String]::Format($CacheRefreshPlanUri, $Id)
             Write-Verbose "$CacheRefreshPlanUri"
-            if ($Credential -ne $null)
+            if ($null -ne $WebSession.Credentials)
             {
-                $response = Invoke-RestMethod -Uri $CacheRefreshPlanUri -Method Get -WebSession $WebSession -Credential $Credential -Verbose:$false
+                $response = Invoke-RestMethod -Uri $CacheRefreshPlanUri -Method Get -WebSession $WebSession -Verbose:$false
             }
             else
             {

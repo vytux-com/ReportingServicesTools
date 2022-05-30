@@ -112,13 +112,13 @@ function Out-RsRestCatalogItem
             {
                 Write-Verbose "Fetching metadata for $item from server..."
                 $url = [string]::Format($catalogItemsByPathApi, $item)
-                if ($Credential -ne $null)
+                if ($null -ne $WebSession.Credentials)
                 {
-                    $response = Invoke-WebRequest -Uri $url -Method Get -Credential $Credential -UseBasicParsing -Verbose:$false
+                    $response = Invoke-WebRequest -Uri $url -Method Get -WebSession $WebSession -UseBasicParsing -Verbose:$false
                 }
                 else
                 {
-                    $response = Invoke-WebRequest -Uri $url -Method Get -UseDefaultCredentials -UseBasicParsing -Verbose:$false
+                    $response = Invoke-WebRequest -Uri $url -Method Get -WebSession $WebSession -UseDefaultCredentials -UseBasicParsing -Verbose:$false
                 }
             }
             catch

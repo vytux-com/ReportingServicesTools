@@ -110,7 +110,7 @@ function New-RsRestCacheRefreshPlan
     {
         try
         {
-            if ((Get-RsRestItem -RsItem $RsItem -ReportPortalUri $ReportPortalUri -WebSession $WebSession -Credential $Credential -Verbose:$false).Type -ne 'PowerBIReport' )
+            if ((Get-RsRestItem -RsItem $RsItem -ReportPortalUri $ReportPortalUri -WebSession $WebSession -Verbose:$false).Type -ne 'PowerBIReport' )
             {
                 Write-Warning "Unable to create a CacheRefreshPlan for $RsItem because it is not a Power BI report."
             }
@@ -133,9 +133,9 @@ function New-RsRestCacheRefreshPlan
                 $payloadJson = ConvertTo-Json $payload -Depth 15
                 Write-Verbose "Payload: $payloadJson"
 
-                if ($Credential -ne $null)
+                if ($null -ne $WebSession.Credentials)
                 {
-                    $response = Invoke-WebRequest -Uri $refreshplansUri -Method Post -WebSession $WebSession -Body ([System.Text.Encoding]::UTF8.GetBytes($payloadJson)) -ContentType "application/json" -Credential $Credential -UseBasicParsing -Verbose:$false
+                    $response = Invoke-WebRequest -Uri $refreshplansUri -Method Post -WebSession $WebSession -Body ([System.Text.Encoding]::UTF8.GetBytes($payloadJson)) -ContentType "application/json" -UseBasicParsing -Verbose:$false
                 }
                 else
                 {

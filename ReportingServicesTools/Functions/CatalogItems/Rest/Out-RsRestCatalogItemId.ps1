@@ -126,13 +126,13 @@ function Out-RsRestCatalogItemId
         {
             Write-Verbose "Downloading item content from server..."
             $url = [string]::Format($catalogItemContentApi, $itemId)
-            if ($Credential -ne $null)
+            if ($null -ne $WebSession.Credentials)
             {
-                $response = Invoke-WebRequest -Uri $url -Method Get -Credential $Credential -UseBasicParsing -Verbose:$false
+                $response = Invoke-WebRequest -Uri $url -Method Get -WebSession $WebSession -UseBasicParsing -Verbose:$false
             }
             else
             {
-                $response = Invoke-WebRequest -Uri $url -Method Get -UseDefaultCredentials -UseBasicParsing -Verbose:$false
+                $response = Invoke-WebRequest -Uri $url -Method Get -WebSession $WebSession -UseDefaultCredentials -UseBasicParsing -Verbose:$false
             }
         }
         catch
